@@ -2,12 +2,11 @@ const User = require('../models/user.model');
 const generateToken = require('../utils/generateToken');
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
-
+  const { firstname, lastname,email,phone, password,otp } = req.body;
   const exists = await User.findOne({ email });
   if (exists) return res.status(400).json({ message: 'User exists' });
 
-  const user = await User.create({ name, email, password });
+  const user = await User.create({ firstname, lastname,email,phone, password,otp,token });
   res.status(201).json({
     id: user._id,
     email: user.email,
